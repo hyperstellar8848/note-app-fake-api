@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Note App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!--  Header: Logo + Total Count  -->
+      <header class="header">
+        <h1 class="logo">📝 Note App</h1>
+        <div class="stats"><span id="total-count">0</span> notes</div>
+      </header>
+
+      <!--  Toolbar: Search + Filter Buttons  -->
+      <div class="toolbar">
+        <div class="search-box">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search notes..."
+            autocomplete="off"
+          />
+          <span class="search-icon">🔍</span>
+        </div>
+        <div class="filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="personal">Personal</button>
+          <button class="filter-btn" data-filter="work">Work</button>
+          <button class="filter-btn" data-filter="ideas">Ideas</button>
+        </div>
+      </div>
+
+      <!--  Form: Add / Edit Note  -->
+      <form id="note-form" class="note-form">
+        <!-- Hidden field for edit mode -->
+        <input type="hidden" id="note-id" />
+        <div class="form-row">
+          <input
+            type="text"
+            id="note-title"
+            placeholder="Note title..."
+            required
+          />
+          <select id="note-category" required>
+            <option value="">Category</option>
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+            <option value="ideas">Ideas</option>
+          </select>
+        </div>
+        <textarea
+          id="note-text"
+          placeholder="Write your note..."
+          required
+        ></textarea>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <span id="form-btn-text">Add Note</span>
+          </button>
+          <button
+            type="button"
+            id="cancel-btn"
+            class="btn btn-secondary hidden"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+
+      <!--  Notes Container  -->
+      <main class="notes-container">
+        <!-- Notes will be rendered here by JavaScript -->
+        <div id="notes-list" class="notes-list"></div>
+
+        <!-- Loading Spinner (hidden by default) -->
+        <div id="loading" class="loading hidden">
+          <div class="spinner"></div>
+          <span>Loading notes...</span>
+        </div>
+
+        <!-- Error State (hidden by default) -->
+        <div id="error-state" class="error-state hidden">
+          <span class="error-icon">⚠️</span>
+          <p id="error-message">Something went wrong</p>
+          <button id="retry-btn" class="btn btn-primary">Retry</button>
+        </div>
+
+        <!-- Empty State (hidden by default) -->
+        <div id="empty-state" class="empty-state hidden">
+          <span class="empty-icon">📭</span>
+          <p>No notes found</p>
+        </div>
+
+        <!-- End of List Message (hidden by default) -->
+        <div id="end-message" class="end-message hidden">
+          <span>No more notes to load</span>
+        </div>
+
+        <!-- Sentinel Element for Intersection Observer -->
+        <div id="sentinel" class="sentinel"></div>
+      </main>
+
+      <!--  Delete Confirmation Modal  -->
+      <div id="delete-modal" class="modal hidden">
+        <div class="modal-content">
+          <h3>Delete Note?</h3>
+          <p>Are you sure? This cannot be undone.</p>
+          <div class="modal-actions">
+            <button id="confirm-delete" class="btn btn-danger">Delete</button>
+            <button id="cancel-delete" class="btn btn-secondary">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
